@@ -1,0 +1,34 @@
+---
+# Example playbook to list volumes of a host on a FlashArray
+#
+# execute as follows
+# ansible-playbook paybooks/ps_volumes_group.yml -e "volumename=cdsd003_data_03"
+# 
+- name: List host volumes on FlashArray
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: open session
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/auth/session
+        method: POST
+        validate_certs: no
+        return_content: yes
+        body:
+          api_token: "{{ array_token }}"
+        body_format: json
+      register: session
+
+    - name: list volumes
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/volume/{{ volumename }}
+        method: GET
+        validate_certs: no
+        HEADER_Cookie: "{{session.set_cookie}}"
+        return_content: yes
+      ignore_errors: yes
+      register: hostdata
+
+    - name: show host list
+      debug: msg="{{ hostdata.json }}"

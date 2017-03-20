@@ -1,0 +1,42 @@
+---
+# Example playbook to list snapshots per volume on a FlashArray
+#
+# Execute as ansible-playbook playbooks/ps_list_snapshots.yml -e "volname=cdsd003_data_01"
+# 
+- name: List snapshots per volume on FlashArray
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: open session
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/auth/session
+        method: POST
+        validate_certs: no
+        return_content: yes
+        body:
+          api_token: "{{ array_token }}"
+        body_format: json
+      register: session
+
+    - name: list snapshots per volume
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/volume/{{ volname }}?snap=true
+        method: GET
+        validate_certs: no
+        HEADER_Cookie: "{{session.set_cookie}}"
+        return_content: yes
+      ignore_errors: yes
+      register: snapdata
+
+    - name: show snapshot per volume
+      debug: msg="{{ snapdata.json }}"
+
+    - name: close session
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/auth/session
+        method: DELETE
+        validate_certs: no
+        return_content: yes
+        HEADER_Cookie: "{{session.set_cookie}}"
+        register: session_close

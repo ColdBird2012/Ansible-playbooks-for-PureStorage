@@ -1,0 +1,45 @@
+---
+# Example playbook to report Max BW per host performance on a FlashArray
+#
+# Execute as follows
+#
+# 
+# ansible-playbook playbooks/ps_performance_host_live_maxBW.yml -e "input_per_sec=100000" bytes/sec
+#
+- name: Max Bandwidth Host performance Information on FlashArray
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: open session
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/auth/session
+        method: POST
+        validate_certs: no
+        return_content: yes
+        body:
+          api_token: "{{ array_token }}"
+        body_format: json
+      register: session
+
+    - name: max bw host performance
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/host?action=monitor&filter=input_per_sec>{{ input_per_sec }}
+        method: GET
+        validate_certs: no
+        HEADER_Cookie: "{{session.set_cookie}}"
+        return_content: yes
+      ignore_errors: yes
+      register: perfdata
+
+    - name: show max BW per host
+      debug: msg="{{ perfdata.json }}"
+
+    - name: close session
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/auth/session
+        method: DELETE
+        validate_certs: no
+        return_content: yes
+        HEADER_Cookie: "{{session.set_cookie}}"
+        register: session_close

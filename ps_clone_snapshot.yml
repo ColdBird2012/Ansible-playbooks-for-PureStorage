@@ -1,0 +1,47 @@
+---
+# Example playbook to clone a snapshot of a volume on a FlashArray
+#
+# Provide the following parameters to the ansible-playbook command 
+# using the -e switch:
+# 
+#   -e "source=volume-name"
+#
+# For example:
+#
+#  ansible-playbook ps_clone_volume.yml -e "source=test_vol.snaphot1"
+# 
+- name: Clone a snapshot of a volume on FlashArray
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: open session
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/auth/session
+        method: POST
+        validate_certs: no
+        return_content: yes
+        body:
+          api_token: "{{ array_token }}"
+        body_format: json
+      register: session
+
+    - name: clone snapshot of volume
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/volume/my_cloned_snapshot
+        method: POST
+        validate_certs: no
+        HEADER_Cookie: "{{session.set_cookie}}"
+        return_content: yes
+        body:
+          source: "{{ source }}"
+        body_format: json
+      ignore_errors: yes
+
+    - name: close session
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/auth/session
+        method: DELETE
+        validate_certs: no
+        return_content: yes
+        HEADER_Cookie: "{{session.set_cookie}}"
+        register: session_close

@@ -1,0 +1,41 @@
+---
+# Example playbook to list alerting domain info on a FlashArray
+#
+# No parameters are required for this playbook
+# 
+- name: Alert domain Information on FlashArray
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: open session
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/auth/session
+        method: POST
+        validate_certs: no
+        return_content: yes
+        body:
+          api_token: "{{ array_token }}"
+        body_format: json
+      register: session
+
+    - name: alert domain info
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/array?senderdomain=true
+        method: GET
+        validate_certs: no
+        HEADER_Cookie: "{{session.set_cookie}}"
+        return_content: yes
+      ignore_errors: yes
+      register: alertdata
+
+    - name: show alert information
+      debug: msg="{{ alertdata.json }}"
+    - name: close session
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/auth/session
+        method: DELETE
+        validate_certs: no
+        return_content: yes
+        HEADER_Cookie: "{{session.set_cookie}}"
+        register: session_close

@@ -1,0 +1,39 @@
+---
+# Example playbook to detach a volume from a host on a FlashArray
+#
+# For example:
+#
+#  ansible-playbook ps_detach_volume.yml -e "hostname=cdsd003" volname=cdsd003_rootvg01"
+# 
+#
+- name: Detached volume from host on FlashArray
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: open session
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/auth/session
+        method: POST
+        validate_certs: no
+        return_content: yes
+        body:
+          api_token: "{{ array_token }}"
+        body_format: json
+      register: session
+    - name: detach volume
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/host/{{ hostname }}/volume/{{ volname }}
+        method: DELETE
+        validate_certs: no
+        HEADER_Cookie: "{{session.set_cookie}}"
+        return_content: yes
+      ignore_errors: yes
+
+    - name: close session
+      uri:
+        url: https://{{ arrayurl }}/api/{{ api_version }}/auth/session
+        method: DELETE
+        validate_certs: no
+        return_content: yes
+        HEADER_Cookie: "{{session.set_cookie}}"
+        register: session_close
