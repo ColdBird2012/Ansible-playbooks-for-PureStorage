@@ -1,7 +1,7 @@
 ---
 # Example playbook to report space consumption per host on a FlashArray
 #
-# Execute as ansible-playbook playbooks/ps_get_host_space -e "hostname=cdsd003"
+# Execute as ansible-playbook playbooks/ps_get_host_space.yml -e "hostname=cdsd003"
 # 
 - name: Get host space on FlashArray
   hosts: localhost
