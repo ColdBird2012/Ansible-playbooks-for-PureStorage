@@ -2,7 +2,7 @@
 # Example playbook to check whether a volume is mapped to a host on a FlashArray
 #
 # execute as
-# ansible-playbook playbook/ps_list_host_volume.yml -e "volumename=cdsd003_data_02"
+# ansible-playbook playbook/ps_list_host_volume.yml -e "volumename=myvolume_data_02"
 # 
 - name: List host volumes on FlashArray
   hosts: localhost
