@@ -2,7 +2,7 @@
 # Example playbook to list volumes of a host on a FlashArray
 #
 # execute as follows
-# ansible-playbook playbooks/ps_list_volume.yml -e "hostname=cdsd003"
+# ansible-playbook playbooks/ps_list_volume.yml -e "hostname=myserver04"
 # 
 - name: List host volumes on FlashArray
   hosts: localhost
