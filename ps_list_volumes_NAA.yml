@@ -2,7 +2,7 @@
 # Example playbook to list volumes NAA serial on a FlashArray
 #
 # execute as follows
-# ansible-playbook playbooks/ps_list_volumes_NAA.yml -e "volume=cdsd003*"
+# ansible-playbook playbooks/ps_list_volumes_NAA.yml -e "volume=myserver_vol01"
 # 
 - name: List volumes NAA on FlashArray
   hosts: localhost
