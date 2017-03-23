@@ -31,7 +31,7 @@
 
     - name: copy of volume
       uri:
-        url: https://{{ arrayurl }}/api/{{ api_version }}/volume/ttllxapp_lab01_original?overwrite=true
+        url: https://{{ arrayurl }}/api/{{ api_version }}/volume/myvolume_original?overwrite=true
         method: POST
         validate_certs: no
         HEADER_Cookie: "{{session.set_cookie}}"
