@@ -1,8 +1,10 @@
 ---
 # Example playbook to list snapshots per volume on a FlashArray
 #
-# Execute as ansible-playbook playbooks/ps_list_snapshots.yml -e "volname=cdsd003_data_01"
-# 
+# Execute as
+# ansible-playbook playbooks/ps_list_snapshots.yml -e "volname=myvolume_data_01"
+#
+#
 - name: List snapshots per volume on FlashArray
   hosts: localhost
   gather_facts: no
