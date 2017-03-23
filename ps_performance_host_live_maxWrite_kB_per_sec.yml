@@ -3,8 +3,8 @@
 #
 # Execute as follows
 #
-# 
-# ansible-playbook playbooks/ps_performance_host_live_maxBW.yml -e "input_per_sec=100000" bytes/sec
+# ansible-playbook playbooks/ps_performance_host_live_maxBW.yml -e "input_per_sec=100000"
+# if you want Ansible to report live hosts with Max Write BW > 100000 bytes/sec
 #
 - name: Max Bandwidth Host performance Information on FlashArray
   hosts: localhost
