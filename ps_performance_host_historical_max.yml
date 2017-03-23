@@ -1,7 +1,7 @@
 ---
 # Example playbook to report host performance on a FlashArray
 #
-#
+# In this example Ansible reports host IOPS > 100000
 - name: Host performance Information on FlashArray
   hosts: localhost
   gather_facts: no
