@@ -2,7 +2,7 @@
 # Example playbook to list volume size on a FlashArray
 #
 # execute as follows
-# ansible-playbook playbook/ps_list_volume_size_perhost.yml -e "hostname=cdsd003"
+# ansible-playbook playbook/ps_list_volume_size_perhost.yml -e "hostname=myserver23"
 # 
 - name: List volume size per host on FlashArray
   hosts: localhost
