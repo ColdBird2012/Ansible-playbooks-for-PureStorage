@@ -2,7 +2,7 @@
 # Example playbook to list hosts on a FlashArray
 #
 # execute as follows
-# ansible-playbook playbooks/ps_list_individual_host.yml -e "hostname=cdsd003"
+# ansible-playbook playbooks/ps_list_individual_host.yml -e "hostname=myserver3"
 # 
 - name: List hosts on FlashArray
   hosts: localhost
