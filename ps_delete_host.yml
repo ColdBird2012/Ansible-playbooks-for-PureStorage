@@ -8,7 +8,7 @@
 #
 # For example:
 #
-#  ansible-playbook ps_delete_host.yml -e "hostname=cdsd100"
+#  ansible-playbook ps_delete_host.yml -e "hostname=myoldserver wwnlist=['12345678901234']"
 # 
 #
 - name: Delete host on FlashArray
