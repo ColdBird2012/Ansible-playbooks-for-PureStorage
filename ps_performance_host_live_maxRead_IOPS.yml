@@ -3,7 +3,7 @@
 #
 # Execute as follows
 # 
-# ansible-playbook playbooks/ps_performance_host_live_maxRead_IOPS.yml -e "reads_per_sec=10000" iops
+# ansible-playbook playbooks/ps_performance_host_live_maxRead_IOPS.yml -e "reads_per_sec=10000"
 #
 - name: Max Read IOPS Information on FlashArray
   hosts: localhost
