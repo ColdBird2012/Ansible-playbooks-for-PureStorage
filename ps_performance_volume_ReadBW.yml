@@ -3,7 +3,7 @@
 #
 # Execute as follows
 #
-# ansible-playbook playbooks/ps_performance_volume_ReadBW.yml -e "volname=cdsd003*"
+# ansible-playbook playbooks/ps_performance_volume_ReadBW.yml -e "volname=myvolumes*"
 # 
 - name: Volume Read BW performance Information on FlashArray
   hosts: localhost
