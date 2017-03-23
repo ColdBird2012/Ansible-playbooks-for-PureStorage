@@ -3,7 +3,8 @@
 #
 # Execute as follows
 # 
-# ansible-playbook playbooks/ps_performance_host_live_maxWrite_IOPS.yml -e "writes_per_sec=10000" iops
+# ansible-playbook playbooks/ps_performance_host_live_maxWrite_IOPS.yml -e "writes_per_sec=10000"
+# if you want Ansible to report live hosts with Write IOPS > 10000
 #
 - name: Max Writes IOPS Information on FlashArray
   hosts: localhost
