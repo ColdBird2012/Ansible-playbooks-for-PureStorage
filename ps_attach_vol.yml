@@ -3,7 +3,7 @@
 #
 # For example:
 #
-#  ansible-playbook ps_attach_volume.yml -e "hostname=cdsd003" volname=cdsd003_rootvg01"
+#  ansible-playbook ps_attach_volume.yml -e "hostname=myserver" volname=myvolume_vg01"
 # 
 #
 - name: Attached volume to host on FlashArray
