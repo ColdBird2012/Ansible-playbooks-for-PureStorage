@@ -8,7 +8,7 @@
 #
 # For example:
 #
-#  ansible-playbook ps_add_host.yml -e "hostname=cdsd100 wwnlist=['123456789012']"
+#  ansible-playbook ps_add_host.yml -e "hostname=myhostname wwnlist=['123456789012']"
 # 
 #
 - name: Create host on FlashArray
