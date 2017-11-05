@@ -1,5 +1,5 @@
 ---
-# Example playbook to list AD info on a FlashArray
+# Ansible playbook to list AD info on a FlashArray
 #
 # No parameters are required for this playbook
 # 
